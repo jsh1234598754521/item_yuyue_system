@@ -281,7 +281,7 @@ class login_register():
         try:
             conn = mysql.connect(
                 host='127.0.0.1',
-                port=3306,
+                port=7777,
                 user='root',
                 password='Jsh123456',
                 database='reserve_system',
@@ -381,7 +381,7 @@ class login_register():
         email = self.register_notebook_tab2_email_ety.get().strip()
         ## 先检查本用户名是否已经注册(防SQL注入)
         # 连接
-        conn = mysql.connect(host='127.0.0.1',user='root',password='Jsh123456',database='reserve_system',charset='utf8')
+        conn = mysql.connect(host='127.0.0.1',user='root',password='Jsh123456',database='reserve_system',charset='utf8',port=7777)
         try:
             cursor = conn.cursor()
             # 1.判断该用户名是否已经使用
