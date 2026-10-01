@@ -246,7 +246,7 @@ class item_reservation_system():
         self.user_menu.add_command(label='📅 我的预约')
 
         # 4. 退出登录
-        self.user_menu.add_command(label='🚪 退出登录')
+        self.user_menu.add_command(label='🚪 退出登录',command=self.exit_login)
 
     def show_user_profile(self):
         '''个人中心command'''
@@ -260,8 +260,33 @@ class item_reservation_system():
         # 显示标题
         ttk.Label(root,text='个人中心',font=('等线',25),style='Title.TLabel').pack(side=TOP,fill='y',pady=20)
 
-        # 显示控件
+        ## 显示控件
+        # 用户名更改
+
+    def exit_login(self):
+        '''退出登录'''
+        # 二次确认
+        if not messagebox.askyesno(title='二次确认',message=f'是否要退出{self.current_user['name']}的账户？',parent=self.root) :
+            return
+        ## 退出操作
+        # 清空current_user 变量
+        self.current_user = None
+        # 隐藏菜单按钮
+        self.user_menu_btn.pack_forget()
+        # 解绑下拉菜单(menu)
+        if self.user_menu is not None :
+            self.user_menu.delete(0,tk.END)
+            self.user_menu_btn.config(menu='')
+            self.user_menu = None
         
+        # 恢复按钮
+        # 登录
+        self.top_btn_frame_login_btn.pack(side=LEFT)
+        # 注册
+        self.top_btn_frame_register_btn.pack(side=LEFT,padx=10)
+
+        # 发送登录成功提示
+        messagebox.showinfo(title='退出成功!',message='退出成功!用户已退出!',parent=self.root)
 
     def run(self):
         self.root.mainloop()
