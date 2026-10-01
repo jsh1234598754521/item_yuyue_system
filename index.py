@@ -1,4 +1,4 @@
-# encoding utf-8
+# encoding utf-8 afasdf 
 
 import tkinter as tk
 from tkinter import ttk
