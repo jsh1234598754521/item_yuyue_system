@@ -8,7 +8,7 @@ from PIL import ImageTk, Image
 import json
 from tkinter import messagebox
 import pymysql as mysql
-from ttkbootstrap.scrolled import ScrolledText
+from ttkbootstrap.widgets.scrolled import ScrolledText
 import re 
 import dns.resolver
 # smtp 模块
@@ -142,7 +142,7 @@ class login_register():
         
         self.root = ttkbs.Toplevel(self.parents)
         self.login_register_open = True
-        self.root.geometry('800x700')
+        self.root.geometry('1000x900')
         self.root.title(self.title)
         self.root.protocol("WM_DELETE_WINDOW",self.on_login_close)
         self.root.grab_set()  # 捕获所有事件
@@ -163,7 +163,7 @@ class login_register():
         self.other_component = ttkbs.Frame(self.root,height=500)
         self.other_component.pack(expand=True,padx=20,pady=20,fill='both')
         #notebook切换
-        self.login_register_notebook = ttk.Notebook(self.other_component,style='Custom.TNotebook',height=500)
+        self.login_register_notebook = ttk.Notebook(self.other_component,style='Custom.TNotebook',height=700)
         self.login_register_notebook.pack(expand=True,fill='both')
         ## 生成子选项卡(登录)
         self.login_notebook_tab1 = ttkbs.Frame(self.login_register_notebook)
@@ -186,7 +186,7 @@ class login_register():
         self.login_notebook_tab1_pwd_ety = ttk.Entry(self.login_notebook_tab1_ety_btn,style='login_register.TEntry',width=50,show='*')
         self.login_notebook_tab1_pwd_ety.grid(row=3,column=0,sticky='w',pady=10)
         # 显示密码按钮
-        self.login_notebook_tab1_pwd_btn = ttk.Button(self.login_notebook_tab1_ety_btn,style='outline',command=self.login_pwd_show_img_command,image=self.img_no_password_show)
+        self.login_notebook_tab1_pwd_btn = ttkbs.Button(self.login_notebook_tab1_ety_btn,style='outline',command=self.login_pwd_show_img_command,image=self.img_no_password_show)
         self.login_notebook_tab1_pwd_btn.grid(row=3,column=1)
         # 密码错误的StringVar
         self.login_notebook_tab1_stringvar = tk.StringVar()
@@ -226,7 +226,7 @@ class login_register():
         self.register_notebook_tab2_psw_ety = ttk.Entry(self.register_notebook_tab2_ety_frame,width=50,show='*')
         self.register_notebook_tab2_psw_ety.grid(row=5,column=0,pady=5,sticky='nw')
         # 小眼睛btn
-        self.register_notebook_tab2_psw_btn = ttk.Button(self.register_notebook_tab2_ety_frame,style='outline',command=self.register_pwd_show_img_command,image=self.img_no_password_show)
+        self.register_notebook_tab2_psw_btn = ttkbs.Button(self.register_notebook_tab2_ety_frame,style='outline',command=self.register_pwd_show_img_command,image=self.img_no_password_show)
         self.register_notebook_tab2_psw_btn.grid(row=5,column=1,sticky='nw',padx=5)
         # 确认密码lab
         self.register_notebook_tab2_cheakpsw_lab = ttk.Label(self.register_notebook_tab2_ety_frame,text='请再输一遍密码，以确认:',style='Login_register.TLabel')
@@ -547,7 +547,7 @@ class login_register():
         # 更改title
         self.cheak_smtp_window.title('邮箱验证')
         # 设置大小
-        self.cheak_smtp_window.geometry('600x400')
+        self.cheak_smtp_window.geometry('800x600')
         # 设置窗口置顶
         self.cheak_smtp_window.attributes('-topmost', True)
         self.cheak_smtp_window.transient(self.root)
@@ -569,18 +569,18 @@ class login_register():
         self.cheak_smtp_window_code_ety.pack(pady=10)
         ## 协议同意单选框
         # 链接btn与checkbtn的frame
-        self.cheak_smtp_window_agree_frame = ttk.Frame(self.cheak_smtp_window)
+        self.cheak_smtp_window_agree_frame = ttkbs.Frame(self.cheak_smtp_window)
         self.cheak_smtp_window_agree_frame.pack(fill='x',pady=8,padx=90)
         # boolvar 查询数据
         self.cheak_smtp_window_agree_var = tk.BooleanVar()
-        self.cheak_smtp_window_agree_cheakbtn = ttk.Checkbutton(self.cheak_smtp_window_agree_frame,variable=self.cheak_smtp_window_agree_var,onvalue=True,offvalue=False)
+        self.cheak_smtp_window_agree_cheakbtn = ttkbs.Checkbutton(self.cheak_smtp_window_agree_frame,variable=self.cheak_smtp_window_agree_var,onvalue=True,offvalue=False)
         self.cheak_smtp_window_agree_cheakbtn.grid(row=0,column=0,padx=5)
         # 协议ui
         ttk.Label(self.cheak_smtp_window_agree_frame,text='请您仔细查看').grid(row=0,column=1,padx=5)
-        self.cheak_smtp_window_agree_user_btn = ttk.Button(self.cheak_smtp_window_agree_frame,text='用户协议',style='link',cursor='hand2',command=lambda:self.register_agree_see(name='user_agree'))
+        self.cheak_smtp_window_agree_user_btn = ttkbs.Button(self.cheak_smtp_window_agree_frame,text='用户协议',style='link',cursor='hand2',command=lambda:self.register_agree_see(name='user_agree'))
         self.cheak_smtp_window_agree_user_btn.grid(row=0,column=2)
         ttk.Label(self.cheak_smtp_window_agree_frame,text='与').grid(row=0,column=3)
-        self.cheak_smtp_window_agree_rules_btn = ttk.Button(self.cheak_smtp_window_agree_frame,text='软件使用规范',style='link',cursor='hand2',command=lambda:self.register_agree_see(name='rules'))
+        self.cheak_smtp_window_agree_rules_btn = ttkbs.Button(self.cheak_smtp_window_agree_frame,text='软件使用规范',style='link',cursor='hand2',command=lambda:self.register_agree_see(name='rules'))
         self.cheak_smtp_window_agree_rules_btn.grid(row=0,column=4)        
         ttk.Label(self.cheak_smtp_window_agree_frame,text='后打勾以继续注册').grid(row=0,column=5)
         # 取消 确认 按钮
